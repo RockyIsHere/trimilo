@@ -10,7 +10,7 @@ interface BoardProps {
 export const Board = ({ id, title }: BoardProps) => {
   const deleteBoardWithId = deleteBoard.bind(null, id);
   return (
-    <form action={deleteBoardWithId}>
+    <form action={deleteBoardWithId} className=" flex  gap-2 items-center mt-2" >
       <p>Board title: {title}</p>
       <Button type="submit" variant={"destructive"} size={"sm"}>
         Delete
