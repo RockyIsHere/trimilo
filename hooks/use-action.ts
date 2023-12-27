@@ -28,9 +28,7 @@ export const useAction = <TInput, TOutput>(
       try {
         const result = await action(input);
         if (!result) return;
-        if (result.fieldErrors) {
-          setFieldErrors(result.fieldErrors);
-        }
+        setFieldErrors(result.fieldErrors);
         if (result.error) {
           setError(result.error);
         }
@@ -43,13 +41,13 @@ export const useAction = <TInput, TOutput>(
         options.onComplete?.();
       }
     },
-    [action,options]
+    [action, options]
   );
   return {
     execute,
     fieldErrors,
     error,
     data,
-    isLoading
-  }
+    isLoading,
+  };
 };
