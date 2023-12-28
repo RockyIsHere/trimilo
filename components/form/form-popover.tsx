@@ -1,8 +1,7 @@
 "use client";
 
 import React, { ElementRef, ReactNode, useRef } from "react";
-import { Popover, PopoverClose, PopoverContent } from "../ui/popover";
-import { PopoverTrigger } from "@radix-ui/react-popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import { FormInput } from "./form-input";
@@ -26,7 +25,7 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
-  const closeRef = useRef<ElementRef<"button">>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const router = useRouter();
   const { execute, fieldErrors } = useAction(createBoard, {

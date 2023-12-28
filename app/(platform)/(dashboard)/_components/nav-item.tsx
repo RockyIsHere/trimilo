@@ -1,10 +1,9 @@
 'use client'
-import { AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useOrganization, useOrganizationList } from "@clerk/nextjs";
-import { AccordionContent } from "@radix-ui/react-accordion";
 import { Activity, CreditCard, Layout, Settings } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
