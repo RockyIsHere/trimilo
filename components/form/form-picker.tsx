@@ -54,6 +54,7 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
         {images.map((image) => {
           return (
             <div
+              key={image.id}
               className={cn(
                 " cursor-pointer relative aspect-video group hover:opacity-70 transition bg-muted",
                 pending && " opacity-50 hover:opacity-50 cursor-auto"
