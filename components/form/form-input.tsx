@@ -38,7 +38,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ) => {
     const { pending } = useFormStatus();
     return (
-      <div ref={ref} className=" space-y-2">
+      <div className=" space-y-2">
         <div className=" space-y-1">
           {label ? (
             <Label
@@ -50,6 +50,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           ) : null}
           <Input
             onBlur={onBlur}
+            ref={ref}
             placeholder={placeholder}
             defaultValue={defaultValue}
             id={id}
@@ -60,10 +61,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             className={cn(" text-sm px-1 py-1 h-7", className)}
             aria-describedby={`${id}-error`}
           />
-          <FormErrors
-          id={id}
-          errors={errors}
-          />
+          <FormErrors id={id} errors={errors} />
         </div>
       </div>
     );
