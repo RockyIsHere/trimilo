@@ -63,6 +63,15 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
                 setSelectedImageId(image.id);
               }}
             >
+              <input
+                id={id}
+                name={id}
+                type="radio"
+                checked={selectedImageId === image.id}
+                className=" hidden"
+                disabled={pending}
+                value={`${image.id}|${image.urls.thumb}|${image.urls.full}|${image.links.html}|${image.user.name}`}
+              />
               <Image
                 alt="unsplash image"
                 fill

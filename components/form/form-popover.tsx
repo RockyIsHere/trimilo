@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ElementRef, ReactNode, useRef } from "react";
 import { Popover, PopoverClose, PopoverContent } from "../ui/popover";
 import { PopoverTrigger } from "@radix-ui/react-popover";
 import { Button } from "../ui/button";
@@ -11,6 +11,7 @@ import { useAction } from "@/hooks/use-action";
 import { createBoard } from "@/actions/create-board";
 import { toast } from "sonner";
 import FormPicker from "./form-picker";
+import { useRouter } from "next/navigation";
 
 interface FormPopoverProps {
   children: ReactNode;
@@ -25,24 +26,28 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
+  const closeRef = useRef<ElementRef<"button">>(null);
 
-  const {execute, fieldErrors} = useAction(createBoard,{
+  const router = useRouter();
+  const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess(data) {
-
-        console.log({data})
-        toast.success("Board created successfully!")
+      console.log({ data });
+      toast.success("Board created successfully!");
+      router.push(`router/${data.id}`);
     },
     onError(error) {
-        toast.error("Failed to create");
+      toast.error("Failed to create");
 
-        console.log({error})
+      console.log({ error });
     },
-  })
+  });
 
-  const onSubmit = (formData:FormData)=>{
-    const title = formData.get('title') as string
-    execute({title})
-  }
+  const onSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+    const image = formData.get("image") as string;
+    execute({ title, image });
+    closeRef.current?.click();
+  };
   return (
     <Popover>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -55,7 +60,7 @@ const FormPopover = ({
         <div className=" text-sm font-medium text-center text-neutral-600 pb-4">
           Create Board
         </div>
-        <PopoverClose asChild>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className=" h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600 "
             variant={"ghost"}
@@ -65,8 +70,13 @@ const FormPopover = ({
         </PopoverClose>
         <form action={onSubmit} className="space-y-4">
           <div className=" space-y-4">
-            <FormPicker id={"image"} errors={fieldErrors}/>
-            <FormInput id={"title"} label="Board title" type="text" errors={fieldErrors} />
+            <FormPicker id={"image"} errors={fieldErrors} />
+            <FormInput
+              id={"title"}
+              label="Board title"
+              type="text"
+              errors={fieldErrors}
+            />
           </div>
           <FormSubmit>Create</FormSubmit>
         </form>

@@ -8,18 +8,45 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateBoard } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId } = auth();
-  if (!userId) {
+  const { userId, orgId } = auth();
+  if (!userId || !orgId) {
     return {
       error: "Unauthorized",
     };
   }
-  const { title } = data;
+  const { title, image } = data;
+  const [imageId, imageThumbUrl, imageFullUrl, imageUsername, imageLinkHtml] =
+    image.split("|");
+  
+    console.log([
+      imageId,
+      imageThumbUrl,
+      imageFullUrl,
+      imageUsername,
+      imageLinkHtml,
+    ]);
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageUsername ||
+    !imageLinkHtml
+  ) {
+    return {
+      error: "Failed to create board",
+    };
+  }
   let board;
   try {
-   board= await db.board.create({
+    board = await db.board.create({
       data: {
         title,
+        orgId,
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageUsername,
+        imageLinkHtml,
       },
     });
   } catch (err) {
@@ -27,8 +54,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Failed to create board",
     };
   }
-  revalidatePath(`/board/${board.id}`)
-  return {data:board}
+  revalidatePath(`/board/${board.id}`);
+  return { data: board };
 };
 
-export const createBoard = createSafeAction(CreateBoard,handler)
+export const createBoard = createSafeAction(CreateBoard, handler);
