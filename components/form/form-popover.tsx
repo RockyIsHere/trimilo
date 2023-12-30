@@ -51,7 +51,7 @@ const FormPopover = ({
   };
   return (
     <Popover>
-      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent
         side={side}
         className=" w-80 pt-3"
