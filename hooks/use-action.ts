@@ -36,6 +36,8 @@ export const useAction = <TInput, TOutput>(
           setData(result.data);
           options.onSuccess?.(result.data);
         }
+      } catch (err) {
+        console.log(err);
       } finally {
         setIsLoading(false);
         options.onComplete?.();

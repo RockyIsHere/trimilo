@@ -1,7 +1,12 @@
 "use client";
 
 import React, { ElementRef, ReactNode, useRef } from "react";
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../ui/popover";
+import {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
+} from "../ui/popover";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import { FormInput } from "./form-input";
@@ -32,7 +37,7 @@ const FormPopover = ({
     onSuccess(data) {
       console.log({ data });
       toast.success("Board created successfully!");
-      router.push(`router/${data.id}`);
+      router.push(`/board/${data.id}`);
     },
     onError(error) {
       toast.error("Failed to create");

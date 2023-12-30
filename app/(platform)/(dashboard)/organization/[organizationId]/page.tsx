@@ -1,12 +1,10 @@
-import { db } from "@/lib/db";
-import { SignIn } from "@clerk/nextjs";
+
 import Info from "./_components/info";
 import { Separator } from "@/components/ui/separator";
 import BoardList from "./_components/board-list";
 import { Suspense } from "react";
 
 export default async function OrganizationPage() {
-  const boards = await db.board.findMany();
   return (
     <div className=" w-full mb-20">
       <Info />
