@@ -35,14 +35,11 @@ const FormPopover = ({
   const router = useRouter();
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess(data) {
-      console.log({ data });
       toast.success("Board created successfully!");
       router.push(`/board/${data.id}`);
     },
     onError(error) {
       toast.error("Failed to create");
-
-      console.log({ error });
     },
   });
 
